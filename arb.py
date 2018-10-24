@@ -1,14 +1,15 @@
-MLhome1 = +282
-MLaway1 = -357
-MLhome2 = +150
-MLaway2 = -170
+MLhome1 = +290
+MLaway1 = -345
+
+MLhome2 = +260
+MLaway2 = -340
 
 # Convert American Odds to Decimal Odds
 def convert(moneyline):
   if moneyline > 0:
-    return ((moneyline/100) + 1)
+    return ((moneyline / 100) + 1)
   elif moneyline < 0:
-    return (-1 * ((100/moneyline) - 1))
+    return ((100 / (-1 * moneyline)) + 1)
   else:
     print('Problem')
 
@@ -17,7 +18,7 @@ away1 = convert(MLaway1)
 home2 = convert(MLhome2)
 away2 = convert(MLaway2)
 
-print( (home1, away1), (home2, away2))
+# print( (home1, away1), (home2, away2))
 
 totalRisk = 1000
 
@@ -25,6 +26,9 @@ def ArbDetector(home1, away1, home2, away2):
 
   L1 = (1/home1) + (1/away2)
   L2 = (1/home2) + (1/away1)
+
+  print("Inversion 1: " + str(L1))
+  print("Inversion 2: " + str(L2))
 
   # Inversion 1
   if L1 < 1:
@@ -37,8 +41,8 @@ def ArbDetector(home1, away1, home2, away2):
 
     P1 = (BET1 * home1) - (BET1 + BET2)
     P2 = (BET2 * away2) - (BET1 + BET2)
-    print('If HOME wins, you will win ' + str(P1))
-    print('If AWAY wins, you will win ' + str(P2))
+    print('If HOME wins, you will win $' + str(round(P1, 2)))
+    print('If AWAY wins, you will win $' + str(round(P2, 2)))
 
   # Inversion 2
   elif L2 < 1:
