@@ -1,5 +1,6 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import re
 
 my_url = 'http://www.vegasinsider.com/nfl/odds/las-vegas/money/?s=75'
 
@@ -25,24 +26,123 @@ for row in rows:
   count += 1
 
 gameData = []
+regExOdds = r"(.\d{3,5})"
+regExTeam = r"[a-zA-Z]{1,15} ?[a-zA-Z]{3,15}"
 
 for game in games:
-  links = game.find_all('a')
+  # print(game)
+  # print('--------------------------')
+
+  cells = game.find_all('td')
+
+  away_team = re.findall(regExTeam, cells[0].get_text().strip())[0]
+  home_team = re.findall(regExTeam, cells[0].get_text().strip())[1]
+
+  try:
+    open_away = re.findall(regExOdds, cells[1].get_text().strip())[0]
+    open_home = re.findall(regExOdds, cells[1].get_text().strip())[1]
+  except:
+    open_away = 0
+    open_home = 0
+
+  try:
+    VIConcensus_away = re.findall(regExOdds, cells[2].get_text().strip())[0]
+    VIConcensus_home = re.findall(regExOdds, cells[2].get_text().strip())[1]    
+  except:
+    VIConcensus_away = 0
+    VIConcensus_home = 0
+
+  try:
+    Westgate_away = re.findall(regExOdds, cells[3].get_text().strip())[0]
+    Westgate_home = re.findall(regExOdds, cells[3].get_text().strip())[1]
+  except:
+    Westgate_away = 0
+    Westgate_home = 0
+
+  try:
+    MGM_away = re.findall(regExOdds, cells[4].get_text().strip())[0]
+    MGM_home = re.findall(regExOdds, cells[4].get_text().strip())[1]
+  except:
+    MGM_away = 0
+    MGM_home = 0
+
+  try:
+    WilliamHill_away = re.findall(regExOdds, cells[5].get_text().strip())[0]
+    WilliamHill_home = re.findall(regExOdds, cells[5].get_text().strip())[1]
+  except:
+    WilliamHill_away = 0
+    WilliamHill_home = 0
+
+  try:
+    WynnLV_away = re.findall(regExOdds, cells[6].get_text().strip())[0]
+    WynnLV_home = re.findall(regExOdds, cells[6].get_text().strip())[1]
+  except:
+    WynnLV_away = 0
+    WynnLV_home = 0
+
+  try:
+    CGTech_away = re.findall(regExOdds, cells[7].get_text().strip())[0]
+    CGTech_home = re.findall(regExOdds, cells[7].get_text().strip())[1]
+  except:
+    CGTech_away = 0
+    CGTech_home = 0
+
+  try:
+    Stations_away = re.findall(regExOdds, cells[8].get_text().strip())[0]
+    Stations_home = re.findall(regExOdds, cells[8].get_text().strip())[1]
+  except:
+    Stations_away = 0
+    Stations_home = 0
+
+  try:
+    BetOnline_away = re.findall(regExOdds, cells[9].get_text().strip())[0]
+    BetOnline_home = re.findall(regExOdds, cells[9].get_text().strip())[1]
+  except:
+    BetOnline_away = 0
+    BetOnline_home = 0
+
   gameDataObj = {
-      'away_team': links[0].get_text().strip(),
-      'home_team': links[1].get_text().strip(),
-      'open_odds': links[2].get_text().strip(),
-      'VIConcensus_odds': links[3].get_text().strip(),
-      'Westgate_odds': links[4].get_text().strip(),
-      # 'MGM_odds': links[5].get_text().strip(),
-      'WilliamHill_odds': links[5].get_text().strip(),
-      'WynnLV_odds': links[6].get_text().strip(),
-      'CDTech_odds': links[7].get_text().strip(),
-      'Stations_odds': links[8].get_text().strip(),
-      'BetOnline_odds': links[9].get_text().strip()
+      'away_team': away_team,
+      'home_team': home_team,
+      'open': {
+        'away': open_away,
+        'home': open_home
+      },
+      'VIConcensus': {
+        'away': VIConcensus_away,
+        'home': VIConcensus_home
+      },
+      'Westgate': {
+        'away': Westgate_away,
+        'home': Westgate_home
+      },
+      'MGM': {
+        'away': MGM_away,
+        'home': MGM_home
+      },
+      'WilliamHill': {
+        'away': WilliamHill_away,
+        'home': WilliamHill_home
+      },
+      'WynnLV': {
+        'away': WynnLV_away,
+        'home': WynnLV_home
+      },
+      'CGTech': {
+        'away': CGTech_away,
+        'home': CGTech_home
+      },
+      'Stations': {
+        'away': Stations_away,
+        'home': Stations_home
+      },
+      'BetOnline': {
+        'away': BetOnline_away,
+        'home': BetOnline_home
+      }
     }
   gameData.append(gameDataObj)
-  # print(gameDataObj)
-  # print('--------------------------------------------------')
 
-# print(gameData)
+# for game in gameData:
+#   print(game)
+#   print('\n')
