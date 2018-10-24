@@ -1,12 +1,6 @@
 from Scraper import gameData
 
-print(gameData)
-
-MLhome1 = +290
-MLaway1 = -345
-
-MLhome2 = +260
-MLaway2 = -340
+# print(gameData)
 
 # Convert American Odds to Decimal Odds
 def convert(moneyline):
@@ -17,62 +11,88 @@ def convert(moneyline):
   else:
     print('Problem')
 
-home1 = convert(MLhome1)
-away1 = convert(MLaway1)
-home2 = convert(MLhome2)
-away2 = convert(MLaway2)
+# Main function to detect arbitrage and decide wager amounts
+def ArbDetector():
 
-# print( (home1, away1), (home2, away2))
+  totalRisk = 100
 
-totalRisk = 1000
+  for game in gameData:
 
-def ArbDetector(home1, away1, home2, away2):
+    print('\n')
+    print(game['away_team'] + ' vs. ' + game['home_team'])
+    
+    books = [
+      'open_odds',
+      'VIConcensus_odds',
+      'Westgate_odds',
+      'WilliamHill_odds',
+      'WynnLV_odds',
+      'CDTech_odds',
+      'Stations_odds',
+      'BetOnline_odds'
+      ]
 
-  L1 = (1/home1) + (1/away2)
-  L2 = (1/home2) + (1/away1)
+    for i in range(0, len(books)):
+      for j in range(i+1, len(books)):
 
-  print("Inversion 1: " + str(L1))
-  print("Inversion 2: " + str(L2))
+        book1_name = books[i]
+        book2_name = books[j]
 
-  # Inversion 1
-  if L1 < 1:
-    print('🚨 🚨 ARBITRAGE ALERT @ ' + str(L1) + ' !!!🚨 🚨 ')
+        book1 = game[books[i]]
+        book2 = game[books[j]]
 
-    BET1 = totalRisk / (L1 * home1)
-    BET2 = totalRisk / (L1 * away2)
-    print('Bet $' + str(round(BET1, 2)) + ' on the HOME team on BOOK 1')
-    print('Bet $' + str(round(BET2, 2)) + ' on the AWAY team on BOOK 2')
+        try:
+          MLhome1 = int(game[books[i]][:4])
+          MLaway1 = int(game[books[i]][4:])
+          MLhome2 = int(game[books[j]][:4])
+          MLaway2 = int(game[books[j]][4:])
+        except:
+          continue
 
-    P1 = (BET1 * home1) - (BET1 + BET2)
-    P2 = (BET2 * away2) - (BET1 + BET2)
-    print('If HOME wins, you will win $' + str(round(P1, 2)))
-    print('If AWAY wins, you will win $' + str(round(P2, 2)))
+        home1 = convert(MLhome1)
+        away1 = convert(MLaway1)
+        home2 = convert(MLhome2)
+        away2 = convert(MLaway2)
 
-  # Inversion 2
-  elif L2 < 1:
-    print('🚨 🚨 ARBITRAGE ALERT @ ' + str(L2) + ' !!!🚨 🚨 ')
+        L1 = (1/home1) + (1/away2)
+        L2 = (1/home2) + (1/away1)
 
-    BET1 = totalRisk / (L2 * home2)
-    BET2 = totalRisk / (L2 * away1)
-    print('Bet $' + str(round(BET1, 2)) + ' on the HOME team on BOOK 2')
-    print('Bet $' + str(round(BET2, 2)) + ' on the AWAY team on BOOK 1')
+        # print('\n')
+        # print(books[i], book1)
+        # print(books[j], book2)
+        # print("Inversion 1: " + str(L1))
+        # print("Inversion 2: " + str(L2))
 
-    P1 = (BET1 * home2) - (BET1 + BET2)
-    P2 = (BET2 * away1) - (BET1 + BET2)
-    print('If HOME wins, you will win $' + str(round(P1, 2)))
-    print('If AWAY wins, you will win $' + str(round(P2, 2)))
+        # Inversion 1
+        if L1 < 1:
+          print('🚨 🚨 ARBITRAGE ALERT @ ' + str(L1) + ' !!!🚨 🚨 ')
 
-  # No Arbitrage
-  else:
-    print('No Arbitrage Detected :(')
-  
+          BET1 = totalRisk / (L1 * home1)
+          BET2 = totalRisk / (L1 * away2)
+          print('Bet $' + str(round(BET1, 2)) + ' on ' + game['home_team'] + ' on ' + book1_name)
+          print('Bet $' + str(round(BET2, 2)) + ' on ' + game['away_team'] + ' on ' + book2_name)
 
-ArbDetector(home1, away1, home2, away2)
+          P1 = (BET1 * home1) - (BET1 + BET2)
+          P2 = (BET2 * away2) - (BET1 + BET2)
+          print('If HOME wins, you will win $' + str(round(P1, 2)))
+          print('If AWAY wins, you will win $' + str(round(P2, 2)))
 
-# def Bets(totalRisk, Arb, Odds1, Odds2):
-#   print(totalRisk, Arb, Odds1, Odds2)
+        # Inversion 2
+        elif L2 < 1:
+          print('🚨 🚨 ARBITRAGE ALERT @ ' + str(L2) + ' !!!🚨 🚨 ')
 
-# def Main():
-#   Inversion(home1, away1, home2, away2)
-#   Bets(totalRisk, Arb, Odds1, Odds2)
-# Main()
+          BET1 = totalRisk / (L2 * home2)
+          BET2 = totalRisk / (L2 * away1)
+          print('Bet $' + str(round(BET1, 2)) + ' on ' + game['home_team'] + ' on ' + book2_name)
+          print('Bet $' + str(round(BET2, 2)) + ' on ' + game['away_team'] + ' on ' + book1_name)
+
+          P1 = (BET1 * home2) - (BET1 + BET2)
+          P2 = (BET2 * away1) - (BET1 + BET2)
+          print('If HOME wins, you will win $' + str(round(P1, 2)))
+          print('If AWAY wins, you will win $' + str(round(P2, 2)))
+
+        # No Arbitrage
+        else:
+          print('No Arbitrage Detected :(')
+    
+ArbDetector()
