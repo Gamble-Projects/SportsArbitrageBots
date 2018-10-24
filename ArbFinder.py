@@ -1,3 +1,7 @@
+from Scraper import gameData
+
+print(gameData)
+
 MLhome1 = +290
 MLaway1 = -345
 
