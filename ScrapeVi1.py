@@ -18,6 +18,27 @@ rows = data.find_all("tr")
 #   print(game)
 #   print('\n--------------------------------------------------\n')
 
+# Convert American Odds to Decimal Odds
+def convertAmericanToDecimal(american):
+
+  # print('American: ', american, type(american))
+
+  americanOdds = int(american)
+  
+  if americanOdds > 0:
+    decimalOdds = round(((americanOdds / 100) + 1), 3)
+    
+  elif americanOdds < 0:
+    decimalOdds = round(((100 / (-1 * americanOdds)) + 1), 3)
+
+  else:
+    decimalOdds = round(1, 3)
+
+  # print('Decimal: ', decimalOdds, type(decimalOdds))
+  return decimalOdds
+
+
+
 count = 0
 games = []
 for row in rows:
@@ -105,40 +126,40 @@ for game in games:
       'away_team': away_team,
       'home_team': home_team,
       'open': {
-        'away': open_away,
-        'home': open_home
+        'away': convertAmericanToDecimal(open_away),
+        'home': convertAmericanToDecimal(open_home)
       },
       'VIConcensus': {
-        'away': VIConcensus_away,
-        'home': VIConcensus_home
+        'away': convertAmericanToDecimal(VIConcensus_away),
+        'home': convertAmericanToDecimal(VIConcensus_home)
       },
       'Westgate': {
-        'away': Westgate_away,
-        'home': Westgate_home
+        'away': convertAmericanToDecimal(Westgate_away),
+        'home': convertAmericanToDecimal(Westgate_home)
       },
       'MGM': {
-        'away': MGM_away,
-        'home': MGM_home
+        'away': convertAmericanToDecimal(MGM_away),
+        'home': convertAmericanToDecimal(MGM_home)
       },
       'WilliamHill': {
-        'away': WilliamHill_away,
-        'home': WilliamHill_home
+        'away': convertAmericanToDecimal(WilliamHill_away),
+        'home': convertAmericanToDecimal(WilliamHill_home)
       },
       'WynnLV': {
-        'away': WynnLV_away,
-        'home': WynnLV_home
+        'away': convertAmericanToDecimal(WynnLV_away),
+        'home': convertAmericanToDecimal(WynnLV_home)
       },
       'CGTech': {
-        'away': CGTech_away,
-        'home': CGTech_home
+        'away': convertAmericanToDecimal(CGTech_away),
+        'home': convertAmericanToDecimal(CGTech_home)
       },
       'Stations': {
-        'away': Stations_away,
-        'home': Stations_home
+        'away': convertAmericanToDecimal(Stations_away),
+        'home': convertAmericanToDecimal(Stations_home)
       },
       'BetOnline': {
-        'away': BetOnline_away,
-        'home': BetOnline_home
+        'away': convertAmericanToDecimal(BetOnline_away),
+        'home': convertAmericanToDecimal(BetOnline_home)
       }
     }
   gameData.append(gameDataObj)
