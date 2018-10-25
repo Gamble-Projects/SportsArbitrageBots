@@ -2,7 +2,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
 
-my_url = 'http://www.vegasinsider.com/nfl/odds/las-vegas/money/?s=75'
+my_url = 'http://www.vegasinsider.com/nfl/odds/las-vegas/money/2/'
 
 # Opening connection and grabbing page
 uClient = urlopen(my_url)
@@ -60,106 +60,106 @@ for game in games:
   home_team = re.findall(regExTeam, cells[0].get_text().strip())[1]
 
   try:
-    open_away = re.findall(regExOdds, cells[1].get_text().strip())[0]
-    open_home = re.findall(regExOdds, cells[1].get_text().strip())[1]
+    GoldenNugget_away = re.findall(regExOdds, cells[1].get_text().strip())[0]
+    GoldenNugget_home = re.findall(regExOdds, cells[1].get_text().strip())[1]
   except:
-    open_away = 0
-    open_home = 0
+    GoldenNugget_away = 0
+    GoldenNugget_home = 0
 
   try:
-    VIConcensus_away = re.findall(regExOdds, cells[2].get_text().strip())[0]
-    VIConcensus_home = re.findall(regExOdds, cells[2].get_text().strip())[1]    
+    TreasureIsland_away = re.findall(regExOdds, cells[2].get_text().strip())[0]
+    TreasureIsland_home = re.findall(regExOdds, cells[2].get_text().strip())[1]    
   except:
-    VIConcensus_away = 0
-    VIConcensus_home = 0
+    TreasureIsland_away = 0
+    TreasureIsland_home = 0
 
   try:
-    Westgate_away = re.findall(regExOdds, cells[3].get_text().strip())[0]
-    Westgate_home = re.findall(regExOdds, cells[3].get_text().strip())[1]
+    SouthPoint_away = re.findall(regExOdds, cells[3].get_text().strip())[0]
+    SouthPoint_home = re.findall(regExOdds, cells[3].get_text().strip())[1]
   except:
-    Westgate_away = 0
-    Westgate_home = 0
+    SouthPoint_away = 0
+    SouthPoint_home = 0
 
   try:
-    MGM_away = re.findall(regExOdds, cells[4].get_text().strip())[0]
-    MGM_home = re.findall(regExOdds, cells[4].get_text().strip())[1]
+    Peppermill_away = re.findall(regExOdds, cells[4].get_text().strip())[0]
+    Peppermill_home = re.findall(regExOdds, cells[4].get_text().strip())[1]
   except:
-    MGM_away = 0
-    MGM_home = 0
+    Peppermill_away = 0
+    Peppermill_home = 0
 
   try:
-    WilliamHill_away = re.findall(regExOdds, cells[5].get_text().strip())[0]
-    WilliamHill_home = re.findall(regExOdds, cells[5].get_text().strip())[1]
+    AtlantisReno_away = re.findall(regExOdds, cells[5].get_text().strip())[0]
+    AtlantisReno_home = re.findall(regExOdds, cells[5].get_text().strip())[1]
   except:
-    WilliamHill_away = 0
-    WilliamHill_home = 0
+    AtlantisReno_away = 0
+    AtlantisReno_home = 0
 
   try:
-    WynnLV_away = re.findall(regExOdds, cells[6].get_text().strip())[0]
-    WynnLV_home = re.findall(regExOdds, cells[6].get_text().strip())[1]
+    Stratosphere_away = re.findall(regExOdds, cells[6].get_text().strip())[0]
+    Stratosphere_home = re.findall(regExOdds, cells[6].get_text().strip())[1]
   except:
-    WynnLV_away = 0
-    WynnLV_home = 0
+    Stratosphere_away = 0
+    Stratosphere_home = 0
 
   try:
-    CGTech_away = re.findall(regExOdds, cells[7].get_text().strip())[0]
-    CGTech_home = re.findall(regExOdds, cells[7].get_text().strip())[1]
+    Caesars_away = re.findall(regExOdds, cells[7].get_text().strip())[0]
+    Caesars_home = re.findall(regExOdds, cells[7].get_text().strip())[1]
   except:
-    CGTech_away = 0
-    CGTech_home = 0
+    Caesars_away = 0
+    Caesars_home = 0
 
   try:
-    Stations_away = re.findall(regExOdds, cells[8].get_text().strip())[0]
-    Stations_home = re.findall(regExOdds, cells[8].get_text().strip())[1]
+    JerrysNugget_away = re.findall(regExOdds, cells[8].get_text().strip())[0]
+    JerrysNugget_home = re.findall(regExOdds, cells[8].get_text().strip())[1]
   except:
-    Stations_away = 0
-    Stations_home = 0
+    JerrysNugget_away = 0
+    JerrysNugget_home = 0
 
   try:
-    BetOnline_away = re.findall(regExOdds, cells[9].get_text().strip())[0]
-    BetOnline_home = re.findall(regExOdds, cells[9].get_text().strip())[1]
+    CoastsCasino_away = re.findall(regExOdds, cells[9].get_text().strip())[0]
+    CoastsCasino_home = re.findall(regExOdds, cells[9].get_text().strip())[1]
   except:
-    BetOnline_away = 0
-    BetOnline_home = 0
+    CoastsCasino_away = 0
+    CoastsCasino_home = 0
 
   gameDataObj = {
       'away_team': away_team,
       'home_team': home_team,
-      'open': {
-        'away': convertAmericanToDecimal(open_away),
-        'home': convertAmericanToDecimal(open_home)
+      'GoldenNugget': {
+        'away': convertAmericanToDecimal(GoldenNugget_away),
+        'home': convertAmericanToDecimal(GoldenNugget_home)
       },
-      'VIConcensus': {
-        'away': convertAmericanToDecimal(VIConcensus_away),
-        'home': convertAmericanToDecimal(VIConcensus_home)
+      'TreasureIsland': {
+        'away': convertAmericanToDecimal(TreasureIsland_away),
+        'home': convertAmericanToDecimal(TreasureIsland_home)
       },
-      'Westgate': {
-        'away': convertAmericanToDecimal(Westgate_away),
-        'home': convertAmericanToDecimal(Westgate_home)
+      'SouthPoint': {
+        'away': convertAmericanToDecimal(SouthPoint_away),
+        'home': convertAmericanToDecimal(SouthPoint_home)
       },
-      'MGM': {
-        'away': convertAmericanToDecimal(MGM_away),
-        'home': convertAmericanToDecimal(MGM_home)
+      'Peppermill': {
+        'away': convertAmericanToDecimal(Peppermill_away),
+        'home': convertAmericanToDecimal(Peppermill_home)
       },
-      'WilliamHill': {
-        'away': convertAmericanToDecimal(WilliamHill_away),
-        'home': convertAmericanToDecimal(WilliamHill_home)
+      'AtlantisReno': {
+        'away': convertAmericanToDecimal(AtlantisReno_away),
+        'home': convertAmericanToDecimal(AtlantisReno_home)
       },
-      'WynnLV': {
-        'away': convertAmericanToDecimal(WynnLV_away),
-        'home': convertAmericanToDecimal(WynnLV_home)
+      'Stratosphere': {
+        'away': convertAmericanToDecimal(Stratosphere_away),
+        'home': convertAmericanToDecimal(Stratosphere_home)
       },
-      'CGTech': {
-        'away': convertAmericanToDecimal(CGTech_away),
-        'home': convertAmericanToDecimal(CGTech_home)
+      'Caesars': {
+        'away': convertAmericanToDecimal(Caesars_away),
+        'home': convertAmericanToDecimal(Caesars_home)
       },
-      'Stations': {
-        'away': convertAmericanToDecimal(Stations_away),
-        'home': convertAmericanToDecimal(Stations_home)
+      'JerrysNugget': {
+        'away': convertAmericanToDecimal(JerrysNugget_away),
+        'home': convertAmericanToDecimal(JerrysNugget_home)
       },
-      'BetOnline': {
-        'away': convertAmericanToDecimal(BetOnline_away),
-        'home': convertAmericanToDecimal(BetOnline_home)
+      'CoastsCasino': {
+        'away': convertAmericanToDecimal(CoastsCasino_away),
+        'home': convertAmericanToDecimal(CoastsCasino_home)
       }
     }
   gameData.append(gameDataObj)

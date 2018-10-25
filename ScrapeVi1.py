@@ -30,7 +30,7 @@ def convertAmericanToDecimal(american):
     
   elif americanOdds < 0:
     decimalOdds = round(((100 / (-1 * americanOdds)) + 1), 3)
-
+ 
   else:
     decimalOdds = round(1, 3)
 
@@ -123,6 +123,7 @@ for game in games:
     BetOnline_home = 0
 
   gameDataObj = {
+    # 'game': { 
       'away_team': away_team,
       'home_team': home_team,
       'open': {
@@ -162,6 +163,7 @@ for game in games:
         'home': convertAmericanToDecimal(BetOnline_home)
       }
     }
+  # }
   gameData.append(gameDataObj)
 
 # for game in gameData:

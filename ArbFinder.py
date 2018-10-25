@@ -1,10 +1,9 @@
-from ScrapeVi1 import gameData as gameData1
-from ScrapeVi2 import gameData as gameData2
+from data import data
 
 # Variables
 totalRisk = 1000
 books = [
-  'open',
+  # 'open',
   'VIConcensus',
   'Westgate',
   'MGM',
@@ -12,7 +11,16 @@ books = [
   'WynnLV',
   'CGTech',
   'Stations',
-  'BetOnline'
+  'BetOnline',
+  'GoldenNugget',
+  'TreasureIsland',
+  'SouthPoint',
+  'Peppermill',
+  'AtlantisReno',
+  'Stratosphere',
+  'Caesars',
+  'JerrysNugget',
+  'CoastsCasino'
 ]
 
 # Calculate if Arbitrage Exists
@@ -37,7 +45,6 @@ def arbitrageCalculator(game, book1, book2):
 
     printStatements(L1, BET1, BET2, P)
 
-
   elif L2 < 1:
 
     # Calculating Risk Amount for each Book
@@ -49,38 +56,35 @@ def arbitrageCalculator(game, book1, book2):
 
     printStatements(L2, BET1, BET2, P)
 
-
   else:
     print('No Arbitrage Detected :(')
+    # pass
 
 
 def printStatements(L, BET1, BET2, P):
-  print('\n')
+  # print('\n')
+  print('--------------------------------')
   print('🚨 🚨 ARBITRAGE ALERT !!! 🚨 🚨 ')
   print("Inversion: " + str(L)[:4])
   print('Bet $' + str(round(BET1[0], 2)) + ' on ' + BET1[1] + ' (' + str(BET1[2]) + ') with ' + BET1[3])
   print('Bet $' + str(round(BET2[0], 2)) + ' on ' + BET2[1] + ' (' + str(BET2[2]) + ') with ' + BET2[3])
   print('You will win $' + str(round(P, 2)))
-  print('\n')
-
-
+  # print('--------------------------------')
+  # print('\n')
 
 
 # Main function to detect arbitrage and decide wager amounts
 def Main():
 
-  for game in gameData1:
+  for key, value in data.items():
 
-    away_team = game['away_team']
-    home_team = game['home_team']
-
-    print('\n')
-    print(away_team.upper() + ' @ ' + home_team.upper())
+    print(key)
 
     for i in range(0, len(books)):
       for j in range(i+1, len(books)):
         book1 = books[i]
         book2 = books[j]
-        arbitrageCalculator(game, book1, book2)
+        arbitrageCalculator(value, book1, book2)
+
 
 Main()
